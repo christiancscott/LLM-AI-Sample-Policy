@@ -1,6 +1,8 @@
 # 🤖 A Sample Company Policy For Large Language Model Artificial Intelligence (LLM AI)
 **Short Description:** This sample policy outlines guidelines for the responsible use of LLM AI solutions to ensure the confidentiality of company data, the security of systems, the privacy of customer data, and the accuracy of LLM AI responses.
+
 **Author(s):** [Christian Scott](https://enclave-regenerous.com/)
+
 **License:** [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
 
 ## ✨ The Objective of This Sample Policy
