@@ -9,12 +9,9 @@ Without any guidance on how to safely utilize LLM AI like ChatGPT, staff at many
 
 I felt there was a need to create a sample policy ([Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)) that businesses could leverage as a starting point for dictating the ethical, lawful, and secure use of LLM AI technologies that abide by corporate policies.
 
-<aside>
 🏛️ **There is no warranty on the completeness and accuracy of this sample policy:**
 I am not a lawyer and this policy is not legal advice. If you leverage this policy, it’s at your own discretion; you should curate this sample policy to your organization’s specific needs and have it reviewed by your legal counsel.
 **License:** [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
-
-</aside>
 
 ---
 
