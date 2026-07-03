@@ -20,7 +20,22 @@ export interface DecisionOption {
   policy: string;
   /** Extra bullets appended after the paragraph (e.g., agentic controls). */
   policyBullets?: string[];
+  /**
+   * Where the option sits on the strict-to-permissive spectrum. Drives the
+   * color glow on the option card: strict = green, balanced = yellow,
+   * open = red. Independent of which option is recommended for a profile.
+   */
+  risk: RiskLevel;
 }
+
+export type RiskLevel = 'strict' | 'balanced' | 'open';
+
+/** Same accent colors as the service tiers on the home page. */
+export const RISK_COLORS: Record<RiskLevel, string> = {
+  strict: '#22C55E',
+  balanced: '#F59E0B',
+  open: '#DC2626',
+};
 
 export interface Decision {
   key: DecisionKey;
@@ -48,6 +63,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
         options: [
           {
             id: 'lean',
+            risk: 'balanced',
             label: 'A single lead',
             summary: 'Your policy owner reviews and approves tools, consulting management for anything touching confidential or customer data. Recommended for smaller teams.',
             policy:
@@ -55,6 +71,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'committee',
+            risk: 'strict',
             label: 'A cross-functional group',
             summary: 'IT/Security, Legal/Compliance, and a business sponsor review together; higher-risk tools need executive sign-off. Better for larger or regulated organizations.',
             policy:
@@ -70,6 +87,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
         options: [
           {
             id: 'constructive',
+            risk: 'balanced',
             label: 'Constructive',
             summary: 'Encourage staff to submit useful tools for review rather than using them quietly. Entering confidential data into an unapproved tool is still a violation. Recommended for most companies.',
             policy:
@@ -77,6 +95,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'strict',
+            risk: 'strict',
             label: 'Strict',
             summary: 'Any use of unapproved AI tools for company work is a policy violation, and the company may block unapproved AI services.',
             policy:
@@ -92,6 +111,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
         options: [
           {
             id: 'singleOwner',
+            risk: 'balanced',
             label: 'Single owner',
             summary: 'Your policy owner runs the whole program and reviews it annually with management. Recommended for small teams.',
             policy:
@@ -99,6 +119,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'committee',
+            risk: 'strict',
             label: 'Governance group',
             summary: 'A cross-functional AI governance group (IT/Security, Legal/Compliance, HR, business sponsor) owns the program.',
             policy:
@@ -120,6 +141,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
         options: [
           {
             id: 'strict',
+            risk: 'strict',
             label: 'Strict: contractual no-training guarantee',
             summary: 'Confidential data only goes into tools that contractually guarantee no training on your data and company ownership of inputs and outputs. Recommended whenever confidential data is in scope.',
             policy:
@@ -127,6 +149,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'balanced',
+            risk: 'balanced',
             label: 'Balanced: verified privacy settings',
             summary: 'Staff must verify and use available no-training settings before any work use, and never enter prohibited data into consumer tiers.',
             policy:
@@ -134,6 +157,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'minimum',
+            risk: 'open',
             label: 'Minimum: no confidential data in public tools',
             summary: 'The floor: confidential information never goes into any public or consumer AI tool, regardless of settings.',
             policy:
@@ -149,6 +173,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
         options: [
           {
             id: 'providerDefault',
+            risk: 'open',
             label: 'Provider default',
             summary: 'AI interaction data follows each approved tool’s standard configuration; staff should assume prompts may be logged. Simplest for most SMBs.',
             policy:
@@ -156,6 +181,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'defined',
+            risk: 'balanced',
             label: 'Defined retention (one year)',
             summary: 'Prompts and outputs on company systems are kept for one year under your records-retention schedule, then disposed of.',
             policy:
@@ -163,6 +189,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'regulated',
+            risk: 'strict',
             label: 'Long retention for compliance (five years)',
             summary: 'Prompts, outputs, and timestamps are kept for five years for compliance and audit, with audit trails of AI access changes.',
             policy:
@@ -178,6 +205,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
         options: [
           {
             id: 'prohibit',
+            risk: 'strict',
             label: 'Prohibited',
             summary: 'No AI recording or transcription of meetings, calls, or conversations. Common in regulated and financial firms.',
             policy:
@@ -185,6 +213,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'consent',
+            risk: 'balanced',
             label: 'Allowed with notice and consent',
             summary: 'Approved tools only, all participants clearly notified, sensitive meetings (HR, legal, M&A) excluded. Recommended for most companies.',
             policy:
@@ -192,6 +221,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'broad',
+            risk: 'open',
             label: 'Allowed broadly for internal meetings',
             summary: 'Approved tools may transcribe internal meetings; participants notified as a courtesy; sensitive transcripts handled per data-classification rules.',
             policy:
@@ -213,6 +243,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
         options: [
           {
             id: 'onRequest',
+            risk: 'open',
             label: 'Disclose on request',
             summary: 'No labels on internal AI-assisted content, but staff must disclose AI use when asked and never pass off AI work as their own analysis. Recommended for most SMBs.',
             policy:
@@ -220,6 +251,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'external',
+            risk: 'balanced',
             label: 'Label external content',
             summary: 'AI-assisted material shared externally or published carries a brief notice; routine autocomplete is exempt.',
             policy:
@@ -227,6 +259,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'broad',
+            risk: 'strict',
             label: 'Label everything',
             summary: 'All AI-generated or AI-assisted content is labeled, internally and externally. The most conservative posture.',
             policy:
@@ -242,6 +275,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
         options: [
           {
             id: 'restrict',
+            risk: 'strict',
             label: 'Restrict: no AI code in products',
             summary: 'AI may help with throwaway scripts and tedious automation (labeled and peer-reviewed), but not code shipped in company products. Recommended for closed-source products.',
             policy:
@@ -249,6 +283,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'review',
+            risk: 'balanced',
             label: 'Allow with review',
             summary: 'AI coding assistants are permitted; all AI-suggested code is developer-reviewed, license-checked, and held to normal quality and security standards.',
             policy:
@@ -264,6 +299,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
         options: [
           {
             id: 'prohibit',
+            risk: 'strict',
             label: 'Prohibit for now',
             summary: 'No autonomous AI acting on company systems or data without a human in the loop; future use requires advance approval with documented controls. Recommended until you are ready.',
             policy:
@@ -271,6 +307,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'approvedTools',
+            risk: 'balanced',
             label: 'Allow within approved tools only',
             summary: 'Agentic features inside already-approved tools are permitted under their existing security configuration; net-new agentic systems require approval.',
             policy:
@@ -278,6 +315,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           },
           {
             id: 'controls',
+            risk: 'open',
             label: 'Allow with controls',
             summary: 'For higher-maturity teams: agentic deployments allowed with a named owner, documented limits, tested human-in-the-loop mechanisms, and an incident-response path.',
             policy:
