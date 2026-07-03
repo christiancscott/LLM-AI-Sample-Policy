@@ -24,6 +24,8 @@ This template gives small and mid-sized businesses (SMBs) a solid starting point
 
 You can build a customized, branded version of this policy, with your company details, logo, and colors, using the free **[LLM AI Policy Generator](https://tantalum.security/llm-ai-policy-generator)** on the Tantalum Security website. It walks you through every 🔧 KEY DECISION below in plain language and produces a polished Word / PDF draft. It runs entirely in your browser (no registration, and your answers never leave your device). The same ⚠️ no-warranty / not-legal-advice notice above applies to anything it generates.
 
+The generator's structured definitions (the questions, decision options, and full document content in TypeScript form) are mirrored in this repository's [`generator/`](generator/) directory.
+
 ---
 
 ## How to use this template
