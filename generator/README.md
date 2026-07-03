@@ -14,8 +14,10 @@ The source of truth for the running generator is the website repository (`Tantal
 
 ```sh
 diff -r generator/ ../company-website/src/app/\(site\)/llm-ai-policy-generator/ \
-  --exclude='*.tsx' --exclude='README.md'
+  --exclude='*.tsx' --exclude='README.md' --exclude='generateDocx.ts'
 ```
+
+(The excluded files are the website's renderers and UI, which are not part of the policy definitions.)
 
 When the policy template changes, update three places together:
 
