@@ -45,7 +45,10 @@ export function formatDate(iso: string): string {
 function plusOneYear(iso: string): string {
   const [y, m, d] = iso.split('-').map(Number);
   if (!y || !m || !d) return iso;
-  return formatDate(`${y + 1}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`);
+  // Date.UTC rolls invalid days over (29 Feb -> 1 March) so the printed
+  // "next review" date is always a real calendar date.
+  const next = new Date(Date.UTC(y + 1, m - 1, d));
+  return `${next.getUTCDate()} ${MONTHS[next.getUTCMonth()]} ${next.getUTCFullYear()}`;
 }
 
 type SectionId =
@@ -57,13 +60,18 @@ type SectionId =
 
 export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc {
   const { company, people, tools, sections } = state;
+  // The date input can be cleared; fall back to the generation date so the
+  // document control table and cover page never print blank dates.
+  const effectiveIso = people.effectiveDate || generatedIso;
 
+  // Function replacers so user-entered values containing `$` substitution
+  // patterns ($$, $&, $') are inserted literally, not interpreted.
   const fill = (text: string): string =>
     text
-      .replaceAll('{companyName}', company.name || '[Company Name]')
-      .replaceAll('{policyOwner}', people.policyOwner || '[policy owner]')
-      .replaceAll('{securityContact}', people.securityContact || '[security contact]')
-      .replaceAll('{legalContact}', people.legalContact || '[legal/compliance contact]');
+      .replaceAll('{companyName}', () => company.name || '[Company Name]')
+      .replaceAll('{policyOwner}', () => people.policyOwner || '[policy owner]')
+      .replaceAll('{securityContact}', () => people.securityContact || '[security contact]')
+      .replaceAll('{legalContact}', () => people.legalContact || '[legal/compliance contact]');
 
   const decision = (key: string) => {
     const def = ALL_DECISIONS.find((d) => d.key === key)!;
@@ -108,8 +116,8 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
       ['Policy Author(s) & Maintainer(s)', people.generatorRole ? `${people.generatorName}, ${people.generatorRole}` : people.generatorName],
       ['Policy Owner / Approver', people.policyOwner],
       ['Authorization (Approval) Date', 'To be completed upon approval'],
-      ['Last Reviewed', formatDate(people.effectiveDate)],
-      ['Next Review', `${plusOneYear(people.effectiveDate)} (at minimum annually, or sooner on material change)`],
+      ['Last Reviewed', formatDate(effectiveIso)],
+      ['Next Review', `${plusOneYear(effectiveIso)} (at minimum annually, or sooner on material change)`],
       ['Applies To', 'All staff (employees, contractors, temporaries) and all devices used for company work'],
     ],
   });
@@ -450,7 +458,7 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
       title: POLICY_TITLE,
       version: GENERATED_VERSION,
       status: 'Draft, pending legal review',
-      effectiveDate: formatDate(people.effectiveDate),
+      effectiveDate: formatDate(effectiveIso),
       generatedDate: formatDate(generatedIso),
     },
     blocks,

@@ -24,6 +24,12 @@ export interface ApprovedTool {
   use: string;
   audience: string;
   notes: string;
+  /**
+   * Stable id linking a row back to the preset chip it came from, so the
+   * chip stays in sync even after the user edits the row's name. Custom
+   * rows have no presetKey. Never rendered into the document.
+   */
+  presetKey?: string;
 }
 
 export interface WizardState {
@@ -81,22 +87,37 @@ export interface Run {
   italic?: boolean;
 }
 
+/**
+ * Italic markers must sit on word boundaries (start/whitespace/bracket before,
+ * end/whitespace/punctuation after) so literal asterisks inside prose or
+ * user-entered values ("3*4 requests") are never swallowed as markup.
+ */
+const ITALIC_RE = /(?<=^|[\s([{"'])\*(\S(?:[^*]*\S)?)\*(?=$|[\s)\]}"'.,;:!?])/;
+
 export function parseRuns(text: string): Run[] {
   const runs: Run[] = [];
-  // Split on **bold** first, then *italic* within the remainder.
-  for (const seg of text.split(/(\*\*[^*]+\*\*)/g)) {
-    if (!seg) continue;
-    if (seg.startsWith('**') && seg.endsWith('**')) {
-      runs.push({ text: seg.slice(2, -2), bold: true });
-      continue;
-    }
-    for (const sub of seg.split(/(\*[^*]+\*)/g)) {
-      if (!sub) continue;
-      if (sub.startsWith('*') && sub.endsWith('*') && sub.length > 2) {
-        runs.push({ text: sub.slice(1, -1), italic: true });
-      } else {
-        runs.push({ text: sub });
+  const pushWithItalics = (seg: string) => {
+    let rest = seg;
+    while (rest) {
+      const m = ITALIC_RE.exec(rest);
+      if (!m) {
+        runs.push({ text: rest });
+        break;
       }
+      if (m.index > 0) runs.push({ text: rest.slice(0, m.index) });
+      runs.push({ text: m[1], italic: true });
+      rest = rest.slice(m.index + m[0].length);
+    }
+  };
+  // ***bold italic*** first, then **bold**, then boundary-checked *italic*.
+  for (const seg of text.split(/(\*\*\*[^*]+\*\*\*|\*\*[^*]+\*\*)/g)) {
+    if (!seg) continue;
+    if (seg.startsWith('***') && seg.endsWith('***') && seg.length > 6) {
+      runs.push({ text: seg.slice(3, -3), bold: true, italic: true });
+    } else if (seg.startsWith('**') && seg.endsWith('**') && seg.length > 4) {
+      runs.push({ text: seg.slice(2, -2), bold: true });
+    } else {
+      pushWithItalics(seg);
     }
   }
   return runs;

@@ -336,30 +336,35 @@ export const ALL_DECISIONS: Decision[] = DECISION_GROUPS.flatMap((g) => g.decisi
 
 export const PRESET_TOOLS: ApprovedTool[] = [
   {
+    presetKey: 'm365-copilot',
     name: 'Microsoft 365 Copilot',
     use: 'General productivity: drafting, summarizing, analysis',
     audience: 'All staff',
     notes: 'Commercial data protection must be confirmed active',
   },
   {
+    presetKey: 'chatgpt',
     name: 'ChatGPT (Team / Enterprise)',
     use: 'Research, drafting non-confidential content',
     audience: 'Approved staff',
     notes: 'Personal / free ChatGPT is not permitted for work',
   },
   {
+    presetKey: 'claude',
     name: 'Claude (Team / Enterprise)',
     use: 'Research, analysis, drafting',
     audience: 'Approved staff',
     notes: 'Consumer accounts are not permitted for work',
   },
   {
+    presetKey: 'gemini',
     name: 'Google Gemini (Workspace)',
     use: 'Productivity within Google Workspace',
     audience: 'All staff',
     notes: 'Workspace data protections must be confirmed active',
   },
   {
+    presetKey: 'github-copilot',
     name: 'GitHub Copilot',
     use: 'Code assistance',
     audience: 'Developers',
@@ -382,7 +387,9 @@ export function defaultDecisions(company: WizardState['company']): Record<Decisi
     dataRetention: company.regulated ? 'regulated' : 'providerDefault',
     transcription: company.regulated ? 'prohibit' : 'consent',
     labeling: 'onRequest',
-    aiCode: 'restrict',
+    // Teams that ship software realistically use assistants with review;
+    // companies without developers keep product code off-limits to AI.
+    aiCode: company.hasDevelopers ? 'review' : 'restrict',
     agenticAi: 'prohibit',
   };
 }
@@ -416,7 +423,7 @@ export function emptyState(): WizardState {
       // server/client hydration mismatch during prerendering.
       effectiveDate: '',
     },
-    tools: [PRESET_TOOLS[0]],
+    tools: [{ ...PRESET_TOOLS[0] }],
     decisions: defaultDecisions(company),
     monitorsAiUse: false,
     sections: defaultSections(company),
