@@ -96,26 +96,26 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   const numbered = (items: string[]) => push({ kind: 'numbered', items: items.map(fill) });
 
   /* ── Document control ────────────────────────────────────────────── */
-  push({ kind: 'h1', text: 'Document control' });
+  push({ kind: 'h1', text: 'Document Control' });
   push({
     kind: 'table',
     header: ['Field', 'Value'],
     widths: [32, 68],
     rows: [
-      ['Policy title', POLICY_TITLE],
+      ['Policy Title', POLICY_TITLE],
       ['Version', GENERATED_VERSION],
       ['Status', 'Draft, pending legal review and formal approval'],
-      ['Policy author(s) & maintainer(s)', people.generatorRole ? `${people.generatorName}, ${people.generatorRole}` : people.generatorName],
-      ['Policy owner / approver', people.policyOwner],
-      ['Authorization (approval) date', 'To be completed upon approval'],
-      ['Last reviewed', formatDate(people.effectiveDate)],
-      ['Next review', `${plusOneYear(people.effectiveDate)} (at minimum annually, or sooner on material change)`],
-      ['Applies to', 'All staff (employees, contractors, temporaries) and all devices used for company work'],
+      ['Policy Author(s) & Maintainer(s)', people.generatorRole ? `${people.generatorName}, ${people.generatorRole}` : people.generatorName],
+      ['Policy Owner / Approver', people.policyOwner],
+      ['Authorization (Approval) Date', 'To be completed upon approval'],
+      ['Last Reviewed', formatDate(people.effectiveDate)],
+      ['Next Review', `${plusOneYear(people.effectiveDate)} (at minimum annually, or sooner on material change)`],
+      ['Applies To', 'All staff (employees, contractors, temporaries) and all devices used for company work'],
     ],
   });
 
   /* ── Purpose and scope ───────────────────────────────────────────── */
-  heading('purpose', 'Purpose and scope');
+  heading('purpose', 'Purpose and Scope');
   p('The purpose of this policy is to establish requirements and guidelines for the use of LLM AI (such as ChatGPT, Microsoft Copilot, Google Gemini, Claude, or similar solutions) by employees, contractors, and temporary workers (collectively, **"staff members"**) of **{companyName}**, whether on company-owned devices or personal devices used for work (BYOD).');
   p('This policy aims to ensure that the use of LLM AI is **ethical, lawful, secure, and consistent** with all company policies, applicable laws, and regulations.');
   p('**This policy applies to:**');
@@ -139,7 +139,7 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   callout('Standard rules-based automation and classical statistics that do **not** incorporate machine learning are not "AI systems" under this policy, unless combined with AI components that produce generative or probabilistic outputs.');
 
   /* ── Guiding principles ──────────────────────────────────────────── */
-  heading('principles', 'Guiding principles');
+  heading('principles', 'Guiding Principles');
   p('These principles govern how every provision of this policy is interpreted and applied. They are intentionally short so that staff can remember them.');
   numbered([
     '**AI assists; humans decide.** AI tools support human judgment; they do not replace it. For any material decision, a qualified human reviews the output and is accountable for it. *"The AI said so"* is never an acceptable basis for a decision.',
@@ -152,30 +152,30 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   ]);
 
   /* ── Key AI risks ────────────────────────────────────────────────── */
-  heading('risks', 'Key AI risks staff must understand');
+  heading('risks', 'Key AI Risks Staff Must Understand');
   p('Before using LLM AI, staff must understand the following inherent risks.');
   push({
     kind: 'table',
-    header: ['Risk', 'What it means', 'Everyday example'],
+    header: ['Risk', 'What It Means', 'Everyday Example'],
     widths: [22, 40, 38],
     rows: [
       [
-        'Data confidentiality & privacy',
+        'Data Confidentiality & Privacy',
         "Information entered into AI may be stored, exposed, or used to train the provider's models, potentially disclosing sensitive data, breaching contracts, or violating privacy laws. Provider privacy terms vary widely.",
         "An employee pastes a confidential customer pricing proposal into a public chatbot to improve the wording. That data may now be outside the company's control.",
       ],
       [
-        'Accuracy & quality (hallucinations)',
+        'Accuracy & Quality (Hallucinations)',
         'AI can produce confident but false information. Decisions or deliverables based on unreviewed output carry real risk.',
         'A team member shares an AI-generated summary of a spec with a customer; it contains an error. The employee, not the tool, is accountable.',
       ],
       [
-        'Intellectual property & ownership',
+        'Intellectual Property & Ownership',
         'Purely AI-generated content may not be copyrightable, may be a derivative of training data, and AI-generated code may carry open-source license obligations (attribution, redistribution, commercial-use limits).',
         'A developer pastes proprietary code into a public AI for debugging; the code may be used in training, and AI-suggested code may embed licensed open-source components.',
       ],
       [
-        'Bias & objectionable content',
+        'Bias & Objectionable Content',
         'AI reflects biases in its training data and may produce discriminatory, offensive, or off-brand content.',
         'An AI used to screen candidates disadvantages a protected group, creating legal and reputational exposure.',
       ],
@@ -189,12 +189,12 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   callout('**Copyright note (United States).** Under U.S. Copyright Office guidance (88 FR 59942, March 2023), purely AI-generated material without sufficient human authorship cannot be copyrighted, though works with meaningful human selection, arrangement, or modification of AI output may qualify. Confirm current guidance and the rules in your jurisdictions with counsel.');
 
   /* ── Approved tools ──────────────────────────────────────────────── */
-  heading('tools', 'Approved AI tools and tool approval');
+  heading('tools', 'Approved AI Tools and Tool Approval');
   p('Only AI tools that the company has reviewed and approved may be used for company work. The current approved list below is maintained by {policyOwner} and is the authoritative source.');
   p('**Currently approved tools:**');
   push({
     kind: 'table',
-    header: ['Approved tool', 'Approved use', 'Who can use it', 'Notes / conditions'],
+    header: ['Approved Tool', 'Approved Use', 'Who Can Use It', 'Notes / Conditions'],
     widths: [24, 30, 18, 28],
     rows: tools.length
       ? tools.map((t) => [t.name, t.use, t.audience, t.notes])
@@ -205,11 +205,11 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
 
   /* ── Risk tiers (optional) ───────────────────────────────────────── */
   if (sections.riskTiers) {
-    heading('riskTiers', 'Risk tiers');
+    heading('riskTiers', 'Risk Tiers');
     p('Classifying AI use into tiers keeps oversight proportionate. Most everyday use is low risk; only a small fraction requires extra scrutiny.');
     push({
       kind: 'table',
-      header: ['Tier', 'What it covers', "What's required"],
+      header: ['Tier', 'What It Covers', "What's Required"],
       widths: [18, 42, 40],
       rows: [
         [
@@ -232,20 +232,20 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   }
 
   /* ── Data protection ─────────────────────────────────────────────── */
-  heading('data', 'Data protection and confidentiality');
+  heading('data', 'Data Protection and Confidentiality');
   p('Staff must follow all applicable privacy laws and company data policies when using AI.');
   p('**Never enter the following into any AI tool unless that specific tool has been explicitly approved to handle it:**');
   push({
     kind: 'table',
-    header: ['Prohibited data category', 'Examples'],
+    header: ['Prohibited Data Category', 'Examples'],
     widths: [36, 64],
     rows: [
-      ['Confidential company information', 'Strategic plans, unreleased financials, operational secrets, internal-only documents'],
-      ['Trade secrets & proprietary IP', 'Source code for company products, designs, formulas, R&D and unreleased product information'],
-      ['Customer confidential data', 'Customer PII, pricing, contracts, or anything covered by a confidentiality agreement'],
-      ['Employee personal information', 'Employee PII, compensation, health/medical information, HR records'],
-      ['Regulated data', 'Anything subject to specific regulatory handling (e.g., financial reporting, health, payment data)'],
-      ['Credentials & security details', 'Passwords, API keys, system architecture, security configurations'],
+      ['Confidential Company Information', 'Strategic plans, unreleased financials, operational secrets, internal-only documents'],
+      ['Trade Secrets & Proprietary IP', 'Source code for company products, designs, formulas, R&D and unreleased product information'],
+      ['Customer Confidential Data', 'Customer PII, pricing, contracts, or anything covered by a confidentiality agreement'],
+      ['Employee Personal Information', 'Employee PII, compensation, health/medical information, HR records'],
+      ['Regulated Data', 'Anything subject to specific regulatory handling (e.g., financial reporting, health, payment data)'],
+      ['Credentials & Security Details', 'Passwords, API keys, system architecture, security configurations'],
     ],
   });
   p('**If confidential data is unintentionally entered into an AI tool**, report it immediately to **{securityContact}** and **{legalContact}** so the exposure can be assessed and contained.');
@@ -254,7 +254,7 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   p('**Data minimization.** AI tools should be granted access only to the data needed for their function. Overly broad access (e.g., a connected assistant that can read all files) is a security risk and must be reviewed before enabling.');
 
   /* ── Acceptable use ──────────────────────────────────────────────── */
-  heading('acceptableUse', "Acceptable use: do's and don'ts");
+  heading('acceptableUse', "Acceptable Use: Do's and Don'ts");
   p('**Staff members MUST:**');
   bullets([
     'Use only approved AI tools, accessed through company accounts where provided.',
@@ -276,7 +276,7 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   ]);
 
   /* ── Human oversight ─────────────────────────────────────────────── */
-  heading('oversight', 'Human oversight and accountability');
+  heading('oversight', 'Human Oversight and Accountability');
   callout('**The core requirement.** AI supports staff judgment; it does not replace it. For any material business decision, a qualified human reviews the output and is accountable for it. *"The AI said so"* is not an acceptable basis for a company decision.');
   p('All AI-generated or AI-assisted output used in a material decision, external communication, customer interaction, or compliance-sensitive context must be reviewed by a qualified person before use. A *qualified reviewer* is someone with the knowledge and authority to judge whether the output is accurate and appropriate for its use.');
   p('**These decisions always require documented human review** (AI may assist but must not be the sole basis):');
@@ -289,7 +289,7 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   ]);
 
   /* ── Transparency ────────────────────────────────────────────────── */
-  heading('transparency', 'Transparency and disclosure');
+  heading('transparency', 'Transparency and Disclosure');
   p('Staff should be honest about the role AI played in their work. When a manager, colleague, customer, or reviewer asks whether and how AI was used, staff must answer accurately.');
   p(`**Labeling AI-assisted content.** ${decision('labeling').policy}`);
   if (state.monitorsAiUse) {
@@ -297,7 +297,7 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   }
 
   /* ── Meeting transcription ───────────────────────────────────────── */
-  heading('transcription', 'Meeting recording and transcription');
+  heading('transcription', 'Meeting Recording and Transcription');
   p('AI meeting assistants (auto-recording, transcription, "recap" bots) raise consent, accuracy, and confidentiality concerns, and may be regulated under recording-consent laws.');
   p(decision('transcription').policy);
 
@@ -310,13 +310,13 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   }
 
   /* ── Content, deliverables, code ─────────────────────────────────── */
-  heading('content', 'AI-generated content, deliverables, and code');
+  heading('content', 'AI-Generated Content, Deliverables, and Code');
   p('AI can be a helpful starting point, but it does not replace the critical thinking, creativity, and judgment of people. Treat every AI output as an initial draft.');
   p('**Trade secrets and core IP.** Do not use AI to generate content intended to become a company trade secret or core intellectual property, where AI involvement could weaken protection. When AI substantially contributes to material meant for IP protection, document the nature and extent of human authorship and AI assistance.');
   p(`**Code in company products.** ${decision('aiCode').policy}`);
 
   /* ── Security requirements ───────────────────────────────────────── */
-  heading('security', 'Security requirements');
+  heading('security', 'Security Requirements');
   p('At minimum:');
   bullets([
     `AI tools are approved only after a basic security review (${ref('tools')}).`,
@@ -329,7 +329,7 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
 
   /* ── Build vs. buy (optional) ────────────────────────────────────── */
   if (sections.buildVsBuy) {
-    heading('buildVsBuy', 'Evaluating bigger AI investments (build vs. buy)');
+    heading('buildVsBuy', 'Evaluating Bigger AI Investments (Build vs. Buy)');
     p('For any significant AI investment (a paid platform, custom build, or anything touching confidential or customer data), complete a short, documented evaluation before committing:');
     bullets([
       '**Problem & fit:** What specific problem does it solve? Does an approved tool already cover it?',
@@ -345,7 +345,7 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
 
   /* ── Multi-jurisdictional (optional) ─────────────────────────────── */
   if (sections.multiJurisdictional) {
-    heading('jurisdictions', 'Multi-jurisdictional considerations');
+    heading('jurisdictions', 'Multi-Jurisdictional Considerations');
     p('Because the company operates in or serves customers in multiple jurisdictions, AI use may be subject to local rules. {policyOwner} monitors developments relevant to the company\'s operations. Examples to consider:');
     bullets([
       '**EU:** EU AI Act (phased) and GDPR Article 22 (automated decisions affecting individuals).',
@@ -360,12 +360,12 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   p('The company should confirm that its insurance coverage (e.g., cyber, professional liability / E&O, general liability) reasonably addresses AI-related scenarios. {policyOwner}, with the company\'s broker, reviews coverage for AI exposure at least annually as the program grows.');
 
   /* ── Training ────────────────────────────────────────────────────── */
-  heading('training', 'Training and awareness');
+  heading('training', 'Training and Awareness');
   p('All staff complete AI training before or shortly after they begin using AI for work, and **at least annually** thereafter. Training covers: this policy and acceptable use; approved tools and their permitted uses; prohibited data categories; recognizing hallucinations, bias, and AI-specific security risks (prompt injection, deepfake impersonation); and how to report incidents.');
   p('Annual training is a floor, not the whole program. AI changes faster than a yearly cycle, so annual training is supplemented with brief, ad-hoc updates (new approved tools, new risks) through the company\'s normal communication channels.');
 
   /* ── Incident response ───────────────────────────────────────────── */
-  heading('incidents', 'Incident response');
+  heading('incidents', 'Incident Response');
   p('Staff must immediately report suspected AI-related incidents. *Prompt reporting is the most important thing a staff member can do.*');
   p('**Report to:** {securityContact} and/or {legalContact}. **Report:**');
   bullets([
@@ -378,30 +378,30 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   p("AI incidents are handled through the company's existing Incident Response Plan.");
 
   /* ── Governance and roles ────────────────────────────────────────── */
-  heading('governance', 'Governance and roles');
+  heading('governance', 'Governance and Roles');
   p(decision('governance').policy);
   p('Responsibilities under this policy include: policy ownership and review; approved-tool list maintenance; tool and use-case approvals; incident handling; training delivery; and, where applicable, vendor and regulatory monitoring.');
 
   /* ── Compliance and enforcement ──────────────────────────────────── */
-  heading('compliance', 'Compliance and enforcement');
+  heading('compliance', 'Compliance and Enforcement');
   p("Staff who do not comply with this policy are subject to the company's standard disciplinary process. Knowing or willful misuse of AI, for example deliberately entering prohibited data into an unapproved tool or using AI for unlawful purposes, may result in further action up to and including termination and, where warranted, legal action.");
 
   /* ── Review and updates ──────────────────────────────────────────── */
-  heading('review', 'Review and updates');
+  heading('review', 'Review and Updates');
   p("This policy is a living document, reviewed and updated at least annually, and sooner whenever a material change occurs in the company's AI tools, the risk landscape, applicable law, or following an AI incident. Material changes require approval from {policyOwner} and are recorded in the revision history.");
 
   /* ── Acknowledgment ──────────────────────────────────────────────── */
-  heading('acknowledgment', 'Acknowledgment and acceptance');
+  heading('acknowledgment', 'Acknowledgment and Acceptance');
   p('By using LLM AI for company work, staff members acknowledge that they have read, understood, and agree to comply with this policy. Staff must report any suspected violation to {legalContact}.');
   callout('*I acknowledge that I have read and understood the {companyName} LLM AI Risk Management & Acceptable Use Policy and agree to comply with it.*');
   push({ kind: 'signature' });
 
   /* ── Appendix A: Revision history (attribution lives here) ───────── */
   push({ kind: 'pagebreak' });
-  push({ kind: 'h1', text: 'Appendix A: Revision history' });
+  push({ kind: 'h1', text: 'Appendix A: Revision History' });
   push({
     kind: 'table',
-    header: ['Version', 'Date', 'Author', 'Summary of changes'],
+    header: ['Version', 'Date', 'Author', 'Summary of Changes'],
     widths: [12, 18, 30, 40],
     rows: [
       [
@@ -420,7 +420,7 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
   });
 
   /* ── Appendix B: Useful references ───────────────────────────────── */
-  push({ kind: 'h1', text: 'Appendix B: Useful references' });
+  push({ kind: 'h1', text: 'Appendix B: Useful References' });
   bullets([
     'NIST AI Risk Management Framework: a voluntary framework for managing AI risks (nist.gov/itl/ai-risk-management-framework).',
     'OWASP Top 10 for LLM Applications: the most critical security risks for LLM and generative AI applications (genai.owasp.org/llm-top-10).',
@@ -431,7 +431,7 @@ export function buildPolicy(state: WizardState, generatedIso: string): PolicyDoc
 
   /* ── Appendix C: Important notice & next steps ───────────────────── */
   push({ kind: 'pagebreak' });
-  push({ kind: 'h1', text: 'Appendix C: Important notice and next steps' });
+  push({ kind: 'h1', text: 'Appendix C: Important Notice and Next Steps' });
   callout('**This document is not legal advice, and no warranty is provided.** It was generated from a general-purpose template and the answers provided during generation. It is provided "as is", without warranty of any kind as to its completeness, accuracy, or fitness for any particular purpose. It does not constitute legal advice, and using it does not create any advisor-client relationship with Tantalum Security or the template authors. {companyName} is solely responsible for reviewing, adapting, approving, and enforcing this policy.');
   p('**Before adopting this policy, complete these steps:**');
   numbered([

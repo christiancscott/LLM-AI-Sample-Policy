@@ -52,7 +52,7 @@ export interface DecisionGroup {
 
 export const DECISION_GROUPS: DecisionGroup[] = [
   {
-    title: 'Governance & approval',
+    title: 'Governance & Approval',
     intro: 'Who is in charge of AI decisions at your company, and what happens when staff find tools on their own.',
     decisions: [
       {
@@ -64,7 +64,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'lean',
             risk: 'balanced',
-            label: 'A single lead',
+            label: 'A Single Lead',
             summary: 'Your policy owner reviews and approves tools, consulting management for anything touching confidential or customer data. Recommended for smaller teams.',
             policy:
               'AI tool requests are reviewed and approved by {policyOwner}, in consultation with senior management for any tool that will touch confidential or customer data.',
@@ -72,7 +72,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'committee',
             risk: 'strict',
-            label: 'A cross-functional group',
+            label: 'A Cross-Functional Group',
             summary: 'IT/Security, Legal/Compliance, and a business sponsor review together; higher-risk tools need executive sign-off. Better for larger or regulated organizations.',
             policy:
               'A cross-functional group (IT/Security, Legal/Compliance, and a business sponsor) reviews and approves AI tools. Higher-risk tools require sign-off from an executive sponsor.',
@@ -112,7 +112,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'singleOwner',
             risk: 'balanced',
-            label: 'Single owner',
+            label: 'Single Owner',
             summary: 'Your policy owner runs the whole program and reviews it annually with management. Recommended for small teams.',
             policy:
               '{policyOwner} owns this policy, maintains the approved-tool list, handles tool requests and incidents, and reviews the policy at least annually with senior management.',
@@ -120,7 +120,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'committee',
             risk: 'strict',
-            label: 'Governance group',
+            label: 'Governance Group',
             summary: 'A cross-functional AI governance group (IT/Security, Legal/Compliance, HR, business sponsor) owns the program.',
             policy:
               'An AI governance group with representatives from IT/Security, Legal/Compliance, HR, and a business sponsor owns this policy, approves higher-risk tools and use cases, and reviews the program at least annually.',
@@ -130,7 +130,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
     ],
   },
   {
-    title: 'Data & privacy',
+    title: 'Data & Privacy',
     intro: 'The rules that keep confidential company and customer data out of the wrong AI tools.',
     decisions: [
       {
@@ -142,7 +142,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'strict',
             risk: 'strict',
-            label: 'Strict: contractual no-training guarantee',
+            label: 'Strict: Contractual No-Training Guarantee',
             summary: 'Confidential data only goes into tools that contractually guarantee no training on your data and company ownership of inputs and outputs. Recommended whenever confidential data is in scope.',
             policy:
               "Confidential, customer, employee, or regulated data may only be used with AI tools that contractually guarantee they will not train their models on the company's prompts, queries, or business data, and that the company retains ownership of all inputs and outputs. Tools without this guarantee may be used for non-confidential data only.",
@@ -150,7 +150,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'balanced',
             risk: 'balanced',
-            label: 'Balanced: verified privacy settings',
+            label: 'Balanced: Verified Privacy Settings',
             summary: 'Staff must verify and use available no-training settings before any work use, and never enter prohibited data into consumer tiers.',
             policy:
               "Staff must verify and use available privacy and no-training settings (e.g., business or enterprise tiers, chat history and training turned off) before using any AI tool for work, and must never enter prohibited-category data into consumer tiers.",
@@ -158,7 +158,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'minimum',
             risk: 'open',
-            label: 'Minimum: no confidential data in public tools',
+            label: 'Minimum: No Confidential Data in Public Tools',
             summary: 'The floor: confidential information never goes into any public or consumer AI tool, regardless of settings.',
             policy:
               'Confidential information of any kind must never be entered into any public or consumer AI tool, regardless of settings.',
@@ -174,7 +174,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'providerDefault',
             risk: 'open',
-            label: 'Provider default',
+            label: 'Provider Default',
             summary: 'AI interaction data follows each approved tool’s standard configuration; staff should assume prompts may be logged. Simplest for most SMBs.',
             policy:
               "AI interaction data is retained according to the approved tool's standard configuration; staff should assume prompts may be logged.",
@@ -182,7 +182,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'defined',
             risk: 'balanced',
-            label: 'Defined retention (one year)',
+            label: 'Defined Retention (One Year)',
             summary: 'Prompts and outputs on company systems are kept for one year under your records-retention schedule, then disposed of.',
             policy:
               "AI prompts and outputs on company systems are retained for one year, consistent with the company's records-retention schedule, then disposed of.",
@@ -190,7 +190,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'regulated',
             risk: 'strict',
-            label: 'Long retention for compliance (five years)',
+            label: 'Long Retention for Compliance (Five Years)',
             summary: 'Prompts, outputs, and timestamps are kept for five years for compliance and audit, with audit trails of AI access changes.',
             policy:
               'AI interactions (prompts, outputs, timestamps) are retained for five years for compliance and audit purposes; audit trails of AI access changes are maintained.',
@@ -214,7 +214,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'consent',
             risk: 'balanced',
-            label: 'Allowed with notice and consent',
+            label: 'Allowed with Notice and Consent',
             summary: 'Approved tools only, all participants clearly notified, sensitive meetings (HR, legal, M&A) excluded. Recommended for most companies.',
             policy:
               'AI transcription is permitted only with an approved tool and only when all participants are clearly notified that recording or transcription is active. Transcripts containing confidential content must be handled per the data protection section of this policy. Do not transcribe meetings where any participant objects or where the subject matter is sensitive (e.g., HR, legal, M&A).',
@@ -222,7 +222,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'broad',
             risk: 'open',
-            label: 'Allowed broadly for internal meetings',
+            label: 'Allowed Broadly for Internal Meetings',
             summary: 'Approved tools may transcribe internal meetings; participants notified as a courtesy; sensitive transcripts handled per data-classification rules.',
             policy:
               'AI transcription with approved tools is permitted for internal meetings; notify participants as a courtesy and handle sensitive transcripts per data-classification rules.',
@@ -232,7 +232,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
     ],
   },
   {
-    title: 'Content, code & autonomy',
+    title: 'Content, Code & Autonomy',
     intro: 'How AI-assisted work products are labeled, whether AI can write production code, and whether AI can act on its own.',
     decisions: [
       {
@@ -244,7 +244,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'onRequest',
             risk: 'open',
-            label: 'Disclose on request',
+            label: 'Disclose on Request',
             summary: 'No labels on internal AI-assisted content, but staff must disclose AI use when asked and never pass off AI work as their own analysis. Recommended for most SMBs.',
             policy:
               'Internal AI-assisted content does not need a label, but staff must disclose how AI was used when asked, and must not pass off substantially AI-generated work as their own original analysis.',
@@ -252,7 +252,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'external',
             risk: 'balanced',
-            label: 'Label external content',
+            label: 'Label External Content',
             summary: 'AI-assisted material shared externally or published carries a brief notice; routine autocomplete is exempt.',
             policy:
               "AI-assisted material shared externally or published should carry a brief notice such as 'AI assistance was used in creating this document' in the footer or notes. Routine autocomplete (e.g., email suggestions) is exempt.",
@@ -260,7 +260,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'broad',
             risk: 'strict',
-            label: 'Label everything',
+            label: 'Label Everything',
             summary: 'All AI-generated or AI-assisted content is labeled, internally and externally. The most conservative posture.',
             policy:
               'All AI-generated or AI-assisted content must be clearly labeled as such, internally and externally.',
@@ -276,7 +276,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'restrict',
             risk: 'strict',
-            label: 'Restrict: no AI code in products',
+            label: 'Restrict: No AI Code in Products',
             summary: 'AI may help with throwaway scripts and tedious automation (labeled and peer-reviewed), but not code shipped in company products. Recommended for closed-source products.',
             policy:
               "AI must not be used to generate code incorporated into the company's closed-source products. AI may assist with throwaway scripts and tedious automation (e.g., sorting a dataset). Any such code must be labeled as AI-generated, peer-reviewed, and comply with the company's secure-development and security policies.",
@@ -284,7 +284,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'review',
             risk: 'balanced',
-            label: 'Allow with review',
+            label: 'Allow with Review',
             summary: 'AI coding assistants are permitted; all AI-suggested code is developer-reviewed, license-checked, and held to normal quality and security standards.',
             policy:
               'AI coding assistants are permitted for development. AI-suggested code must be reviewed by a developer, checked for open-source license obligations before incorporation, and meet the same quality and security standards as any other code.',
@@ -300,7 +300,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'prohibit',
             risk: 'strict',
-            label: 'Prohibit for now',
+            label: 'Prohibit for Now',
             summary: 'No autonomous AI acting on company systems or data without a human in the loop; future use requires advance approval with documented controls. Recommended until you are ready.',
             policy:
               'Autonomous or agentic AI that acts on company systems or data without a human in the loop is prohibited. Future use requires advance approval from {policyOwner} with documented controls.',
@@ -308,7 +308,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'approvedTools',
             risk: 'balanced',
-            label: 'Allow within approved tools only',
+            label: 'Allow Within Approved Tools Only',
             summary: 'Agentic features inside already-approved tools are permitted under their existing security configuration; net-new agentic systems require approval.',
             policy:
               "Agentic features inside already-approved tools (e.g., assistant agents operating within the company's configured environment) are permitted under their existing security configuration and the same rules as all other AI use. Net-new agentic systems require approval.",
@@ -316,7 +316,7 @@ export const DECISION_GROUPS: DecisionGroup[] = [
           {
             id: 'controls',
             risk: 'open',
-            label: 'Allow with controls',
+            label: 'Allow with Controls',
             summary: 'For higher-maturity teams: agentic deployments allowed with a named owner, documented limits, tested human-in-the-loop mechanisms, and an incident-response path.',
             policy:
               'New agentic deployments require, before go-live: approval from {policyOwner}; a named accountable owner; documented limits on data access and action authority; a tested human-in-the-loop or intervention mechanism; and an incident-response path for autonomous failures.',
